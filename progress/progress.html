@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>progress bar design</title>
+<link rel="stylesheet" type="text/css" href="progress.css" />
+</head>
+<body style="padding: 5px;">
+<h1>progress bar:
+<a href="javascript:void(0)" onclick="start()">start</a>
+<a href="javascript:void(0)" onclick="stop()">stop</a>
+<a href="javascript:void(0)" onclick="_continue()">continue</a>
+</h1>
+<div style="padding: 10px;">
+	<div class="progress">
+		<div id="percent" class="percent">50%</div>
+		<div id="current" class="current"></div>
+	</div>
+</div>
+<script type="text/javascript">
+var timer,i=1;
+function start(){
+	stop();
+	i=1;
+	timer = window.setInterval(loop,100);
+}
+function stop(zero){
+	if(timer)window.clearInterval(timer);
+	if(zero)i=0;
+}
+function _continue(){
+	if(timer)window.clearInterval(timer);
+	timer = window.setInterval(loop,100);
+}
+function loop(){
+	i++;
+	document.getElementById("percent").innerHTML = i + "%";
+	document.getElementById("current").style.width = i + "%";
+	if(i == 100) stop(true);
+}
+</script>
+</body>
+</html>
