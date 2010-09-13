@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="background-color:white;height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>how to height 100%</title>
+</head>
+<body style="margin: 0px;background-color:black;height:100%;overflow:auto;">
+<div style="border:0;background-color:gray;height:100%;width:90%;">
+//knowledge
+<p>在Firefox(3.6.8)、Chrome(6.0.472.55)中,DOCTYPE为XHTML 1.0 Strict下默认html和body的高度是根据内容定，在body下设置
+一个高度为height:100%的div并不会充满整个浏览器窗口，必须同时设置html和body的高度为100%方可使该div充满整个浏览器窗口</p>
+
+<p>body的overflow默认值：ie6下overflow-y=scroll,overflow-x=auto;Firefox(3.6.8)、Chrome(6.0.472.55)默认均为auto.
+因此如果不设置body的overflow，默认状态下ie6就会显示不合理的垂直滚动条，设overflow=auto或hidden均可解决</p>
+
+<p>各种浏览器body的margin都不是0，因此要保证div100%高并且正好充满整个窗口，须将body的margin设为0</p>
+
+<p>手动调整浏览器的高度使body出现滚动条，此时div的高度如何？变吗？这时如何理解div的height=100%？</p>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
