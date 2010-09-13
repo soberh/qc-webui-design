@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>clipboard</title>
+</head>
+<body style="padding: 5px;">
+<h1>clipboard copy parse</h1>
+<div style="padding: 10px;">
+	userAgent: <span id="userAgent"></span>
+	<br/>see: http://www.w3help.org/zh-cn/causes/BX2001
+	<br/><br/><textarea style="height:100px;width:400px;" id="srcData">中文
+abc123</textarea>
+	<input type="button" id="copyData" value="copy to clipboard" onclick="setClipboardData(document.getElementById('srcData').value)">
+	<br/><br/><textarea style="height:100px;width:400px;" id="showData"></textarea>
+	<input type="button" id="parseData" value="parse from clipboard" onclick="getClipboardData()">
+</div>
+<div>
+//knowledge
+<p>在firefox(3.6.8)中,DOCTYPE为XHTML 1.0 Strict下span元素没有innerText方法，必须使用innerHTML</p>
+
+</div>
+<script type="text/javascript">
+var browser;
+window.onload=fnInit;
+function fnInit(){
+	browser = window.navigator.userAgent;
+	document.getElementById("userAgent").innerHTML = browser;
+}
+
+function setClipboardData(data){
+	if(browser.indexOf("MSIE") != -1){
+		window.clipboardData.setData("text",data);
+	}else if(browser.indexOf("Firefox") != -1){
+		try {
+			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+		} catch (e) {
+			alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将 'signed.applets.codebase_principal_support'设置为'true'");
+			return;
+		}
+		var clip = Components.classes['@mozilla.org/widget/clipboard;1']
+			.createInstance(Components.interfaces.nsIClipboard);
+		if (!clip)
+			return;
+		var trans = Components.classes['@mozilla.org/widget/transferable;1']
+			.createInstance(Components.interfaces.nsITransferable);
+		if (!trans)
+			return;
+		trans.addDataFlavor('text/unicode');
+		var str = new Object();
+		var len = new Object();
+		var str = Components.classes["@mozilla.org/supports-string;1"]
+			.createInstance(Components.interfaces.nsISupportsString);
+		var copytext = data;
+		str.data = copytext;
+		trans.setTransferData("text/unicode",str,copytext.length*2);
+		var clipid = Components.interfaces.nsIClipboard;
+		if (!clip)
+			return false;
+		clip.setData(trans,null,clipid.kGlobalClipboard);
+		alert(" 复制成功！")
+	}else{
+		alert("this browser is not support clipboard operate.");
+	}
+}
+function getClipboardData(){
+	var data;
+	if(browser.indexOf("MSIE") != -1){
+		data = window.clipboardData.getData("text");
+	}else if(browser.indexOf("Firefox") != -1){
+		netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect'); 
+		var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+		if (!clip) return; 
+		var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+		if (!trans) return; 
+		trans.addDataFlavor('text/unicode'); 
+		clip.getData(trans,clip.kGlobalClipboard); 
+		var str = new Object(); 
+		var len = new Object(); 
+		try { 
+		trans.getTransferData('text/unicode',str,len); 
+		} 
+		catch(error) { 
+		return null; 
+		} 
+		if (str) { 
+		if (Components.interfaces.nsISupportsWString) str=str.value.QueryInterface(Components.interfaces.nsISupportsWString); 
+		else if (Components.interfaces.nsISupportsString) str=str.value.QueryInterface(Components.interfaces.nsISupportsString); 
+		else str = null; 
+		} 
+		if (str) { 
+			data = (str.data.substring(0,len.value / 2)); 
+		}else{
+			data = "unsupport!";
+		}
+	}else{
+		alert("this browser is not support clipboard operate.");
+		data = "unsupport!";
+	}
+	
+	document.getElementById("showData").value = data;
+}
+
+</script>
+</body>
+</html>

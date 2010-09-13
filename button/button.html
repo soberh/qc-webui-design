@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>no image arrow design</title>
+<style type="text/css">
+body{font: 12px "宋体"}
+.container{border: 5px solid #ccc;height:140px;_height:150px;}
+.container div{float: left;}
+.buttons{display: block;
+	margin:0;padding:0;background-color:black;
+	list-style: none;height:3em;position: relative;
+	width:300px;
+}
+.button{display: block;margin:5px 5px 5px 0;float: left;height:2em;line-height:2em;width: auto;list-style: none;}
+.button a{height:2em;display:block;_display:inline;}
+.button a span{height:16px;width:16px;display:block;background-color: gray;}
+.color1{background-color: blue;}
+.color2{background-color: green;}
+</style>
+</head>
+<body style="padding: 20px;">
+<h1>按钮|工具条|菜单</h1>
+<div class="container">
+	<ul class="buttons">
+		<li class="button color1">
+			<a href="javascript:void(0);">
+				<span style="float: left;"></span>按钮1<span style="float: left;"></span>
+			</a>
+		</li>
+		<li class="button color2"><a href="javascript:void(0);">按钮2按钮2</a></li>
+	</ul>
+</div>
+
+</body>
+</html>
+<!-- 实践经验
+ie6中：
+a的display:block会导致宽度为容器的100%，设为display:inline才能为自动内容宽度，其它浏览器则不会
+
+所有浏览器：
+a如果无href，点击不会获得焦点，鼠标的点击手势也不会出现
+ -->
