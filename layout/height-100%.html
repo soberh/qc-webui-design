@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" style="background-color:white;height:100%;">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>how to height 100%</title>
 </head>
-<body style="margin: 0px;background-color:black;height:100%;overflow:auto;">
-<div style="border:0;background-color:gray;height:100%;width:90%;">
-//knowledge
-<p>在Firefox(3.6.8)、Chrome(6.0.472.55)中,DOCTYPE为XHTML 1.0 Strict下默认html和body的高度是根据内容定，在body下设置
+<body style="margin: 0px;background-color:#FEFEFE;height:100%;overflow:hidden;">
+<div style="border:0;background-color:gray;height:95%;width:95%;overflow:auto;">
+//knowledge:Firefox(3.6.8)、Chrome(6.0.472.55)、Safari(5.0(7533.16))、ie6
+<p>1)在Firefox、Chrome中,DOCTYPE为XHTML 1.0 Strict下默认html和body的高度是根据内容定，在body下设置
 一个高度为height:100%的div并不会充满整个浏览器窗口，必须同时设置html和body的高度为100%方可使该div充满整个浏览器窗口</p>
 
-<p>body的overflow默认值：ie6下overflow-y=scroll,overflow-x=auto;Firefox(3.6.8)、Chrome(6.0.472.55)默认均为auto.
+<p>2)body的overflow默认值：ie6下overflow-y=scroll,overflow-x=auto;Firefox、Chrome默认均为auto.
 因此如果不设置body的overflow，默认状态下ie6就会显示不合理的垂直滚动条，设overflow=auto或hidden均可解决</p>
 
-<p>各种浏览器body的margin都不是0，因此要保证div100%高并且正好充满整个窗口，须将body的margin设为0</p>
+<p>3)各种浏览器body的margin都不是0，因此要保证div100%高并且正好充满整个窗口，须将body的margin设为0</p>
 
-<p>手动调整浏览器的高度使body出现滚动条，此时div的高度如何？变吗？这时如何理解div的height=100%？</p>
+<p>4)手动调整浏览器的高度时：
+	<p>4-1)如果div的overflow=auto：该div会自动保持100%的高度。当窗口缩小到小于div内容的高度时，div就会出现滚动条，
+		这时不管body的overflow=auto或hidden，均<b>不会出现body的滚动条</b>。
+	</p>
+	<p>4-2)如果div的overflow=hidden：该div会自动保持100%的高度。Firefox、Chrome、Safari、ie6的行为是一至的，该div内的溢出
+		部分内容均会隐藏掉，这时不管body的overflow=auto或hidden，也<b>不会出现body的滚动条</b>。
+	</p>
+	<p>4-3)如果div的overflow=scroll：该div会自动保持100%的高度。Firefox、Chrome、Safari、ie6的行为是一至的，永远都出现滚动条，
+		这时不管body的overflow=auto或hidden，均不会出现body的滚动条。
+	</p>
+	<p>4-4)如果div的overflow没有设置或设为visible：Firefox、Chrome、Safari的行为是一至的，该div会自动保持100%的高度，div内的溢出部分内
+		容会溢出显示，当窗口高度小于div的内容高度时，若body的overflow=auto，就会<b>出现body的滚动条</b>。IE6则比较怪异，在
+		窗口高度不小于div内容的高度时，该div会自动保持100%的高度；但当窗口高度小于div内容的高度时，该div不会自动保持
+		100%的高度，而是等于内容的高度不再变，内容不会出现溢出效果，此时若body的overflow=auto，就会<b>出现body的滚动条</b>。
+	</p>
+	<p>*)<b>总结:html和body的高度设为100%，body设margin=0、overflow=hidden，div设overflow=auto，各浏览器表现一至，效果最佳。</b>
+	</p>
+</p>
+
+<div style="background-color:#CCC;height:60px;width:600px;">溢出的div
+</div>
 </div>
 <script type="text/javascript">
 
