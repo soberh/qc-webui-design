@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>how to make the div align to the container's direction of left,right,center</title>
+</head>
+<body style="margin: 0px;background-color:#000;height:100%;overflow:hidden;">
+<div style="border:0;background-color:#FEFEFE;height:90%;width:100%;overflow:auto;_text-align:center;">
+	
+<div style="text-align:left;border:0;background-color:gray;height:400px;width:600px;overflow:auto;margin:auto;">
+//knowledge:DOCTYPE为XHTML 1.0 Strict，Firefox(3.6.8)、Chrome(6.0.472.63)、Safari(5.0(7533.16))、Opera(10.60)、ie6
+<p>1)在Firefox、Chrome、Safari、Opera中,设置div的margin=auto，该div会自动水平居中在父容器中，但ie6不会。</p>
+<p>2)*在Firefox、Chrome、Safari、Opera中,设置div的margin-left=auto，该div会右对齐到父容器右侧边缘，但ie6不会。</p>
+<p>3)ie6,要将div水平居中，必须设置其父容器的text-align=center；但在Firefox、Chrome、Safari、Opera中这样设置却不行。</p>
+
+<p><b>总结：ie6不会识别margin=auto。ie6中的元素水平居中是通过父容器的text-align属性控制的，
+而在Firefox、Chrome、Safari、Opera中则是通过设置元素自身的margin=auto来控制的,可以理解auto的
+意思为剩下的空间留给我。
+<br/>故跨浏览器的元素对齐通用设置为：
+<br/>1)水平居中：元素设置margin=auto，父容器设置_text-align=center。
+<br/>2)左对齐：元素设置margin-right=auto，父容器设置_text-align=left。
+<br/>3)右对齐：元素设置margin-left=auto，父容器设置_text-align=right。
+</b></p>
+</div>
+
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
