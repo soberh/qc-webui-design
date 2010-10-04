@@ -18,6 +18,20 @@
 		<div id="current" class="current"></div>
 	</div>
 </div>
+<div style="border:0;background-color:gray;width:95%;overflow:auto;">
+//knowledge:Firefox(3.6.8)、Chrome(6.0.472.55)、Safari(5.0(7533.16))、ie6
+<pre>
+设计说明：
+进度条的DOM结构如下
+    &lt;div class="progress"&gt;
+        &lt;div class="percent"&gt;50%&lt;/div&gt;
+        &lt;div class="current"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+其中progress为进度条的外框架，控制进度条的长度和高度；percent负责显示百分比的文字；current则显示动画进度条；
+设计的重点是percent的css控制，须将position设置为absolute的绝对定位方式，否则文字和图片就会上下分离。
+通过修改current的背景图片就可以控制界面的显示效果。
+</pre>
+</div>
 <script type="text/javascript">
 var timer,i=1;
 function start(){
