@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>如何控制元素在容器中的垂直对齐方式(通过table)</title>
+</head>
+<body style="margin: 0px;background-color:#000;height:100%;overflow:auto;">
+<div style="position:relative;border:0;background-color:#FEFEFE;height:95%;width:95%;overflow:auto;">
+<table style="width:95%;height:95%;background-color:#CCC;table-layout:fixed;" cellpadding="0" cellspacing="0">
+<tr>
+<td style="background-color:blue;overflow:auto;vertical-align:middle;_text-align:center;">
+<div style="text-align:left;background-color:red;width:600px;overflow:auto;margin:auto;">
+//knowledge:DOCTYPE为XHTML 1.0 Strict，Firefox(3.6.8)、Chrome(6.0.472.63)、Safari(5.0(7533.16))、Opera(10.60)、ie6
+<p>1）在窗口大小不小于内容div的尺寸情况下，各浏览器的表现一致，通过控制td的vertical-align
+可以有效的控制内容div垂直居中(middle)、靠上(top)、靠下(bottom)对齐。</p>
+<p>2）在窗口大小小于内容div的尺寸情况下，各浏览器的垂直滚动条正常出现(均为table的容器div的垂直滚动条)，
+而各浏览器的水平滚动条的表现很不一致：</p>
+<p>2-1）Firefox水平滚动条能正常出现，为table的容器div的水平滚动条。</p>
+<p>2-2）Chrome、Safari水平滚动条能正常出现，但为table的td的水平滚动条。</p>
+<p>2-3）Opera水平滚动条无法显示出来，而且水平的溢出部分内容在超出table的容器div的范围外没法看见。</p>
+<p>2-4）ie6水平滚动条无法显示出来，而且水平的溢出部分内容在超出table的td的范围外就没法看见。</p>
+
+<p><b>总结：通过控制div元素的vertical-align=middle是无法控制其内部元素垂直居中的，而
+td元素的vertical-align=middle则在各浏览器中都能控制td内部的元素垂直居中。
+</b></p>
+<p>注意要设置table的cellpadding="0",cellspacing="0",table-layout=fixed，否则高度和宽度的百分比设置在各浏览器中表现就会坏掉。</p>
+</div>
+</td>
+</tr>
+</table>
+
+</div>
+</body>
+</html>
