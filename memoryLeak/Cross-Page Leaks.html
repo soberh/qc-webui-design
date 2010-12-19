@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <script language="JScript">
+
+        function LeakMemory()
+        {
+            var hostElement = document.getElementById("hostElement");
+
+            // Do it a lot, look at Task Manager for memory response
+
+            for(i = 0; i < 5000; i++)
+            {
+                var parentDiv =
+                    document.createElement("<div onClick='foo()'>");
+                var childDiv =
+                    document.createElement("<div onClick='foo()'>");
+
+                // This will leak a temporary object
+                parentDiv.appendChild(childDiv);
+                hostElement.appendChild(parentDiv);
+                hostElement.removeChild(parentDiv);
+                parentDiv.removeChild(childDiv);
+                parentDiv = null;
+                childDiv = null;
+            }
+            hostElement = null;
+        }
+
+
+        function CleanMemory()
+        {
+            var hostElement = document.getElementById("hostElement");
+
+            // Do it a lot, look at Task Manager for memory response
+
+            for(i = 0; i < 5000; i++)
+            {
+                var parentDiv =
+                    document.createElement("<div onClick='foo()'>");
+                var childDiv =
+                    document.createElement("<div onClick='foo()'>");
+
+                // Changing the order is important, this won't leak
+                hostElement.appendChild(parentDiv);
+                parentDiv.appendChild(childDiv);
+                hostElement.removeChild(parentDiv);
+                parentDiv.removeChild(childDiv);
+                parentDiv = null;
+                childDiv = null;
+            }
+            hostElement = null;
+        }
+        </script>
+    </head>
+
+    <body>
+    	<h>Cross-Page Memory Leak Test<h>
+    	<a href="http://msdn.microsoft.com/en-us/library/bb250448(VS.85).aspx">Understanding and Solving Internet Explorer Leak Patterns</a><br/>
+        <button onclick="LeakMemory()">Memory Leaking Insert</button>
+        <button onclick="CleanMemory()">Clean Insert</button>
+        <div id="hostElement"></div>
+    </body>
+</html>

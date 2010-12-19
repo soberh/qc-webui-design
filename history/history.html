@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>如何控制浏览器的前进、后退按钮</title>
+</head>
+<body style="margin: 0px;background-color:#000;height:100%;overflow:hidden;">
+<div style="border:0;background-color:#FEFEFE;height:90%;width:100%;overflow:auto;_text-align:center;">
+	
+<div style="text-align:left;border:0;background-color:gray;height:400px;width:600px;overflow:auto;margin:auto;">
+//knowledge:DOCTYPE为XHTML 1.0 Strict，Firefox(3.6.8)、Chrome(6.0.472.63)、Safari(5.0(7533.16))、Opera(10.60)、ie6
+<p>1)window.history.go(-1|1)。</p>
+<p>1)在IE有iframe的时候，这个iframe的历史记录会被记录在浏览器中，当点击后退按钮的时候，
+会发现主窗口不进行后退，而是iframe里面进行后退 （  firefox会回退其主窗口）。利用这个特性可以进行诡异的 禁用IE浏览器后退按钮。</p>
+
+<p><b>总结：
+</b></p>
+</div>
+
+</div>
+<div>
+<ul>
+<li><a href="link1.html">link1.html</a></li>
+<li><a href="link1.html">link2.html</a></li>
+</ul>
+</div>
+</body>
+</html>

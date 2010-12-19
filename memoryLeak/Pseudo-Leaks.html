@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script language="JScript">
+
+        function LeakMemory()
+        {
+            // Do it a lot, look at Task Manager for memory response
+
+            for(i = 0; i < 5000; i++)
+            {
+                hostElement.text = "function foo() { }";
+            }
+        }
+        </script>
+    </head>
+
+    <body>
+        <button onclick="LeakMemory()">Memory Leaking Insert</button>
+        <script id="hostElement">function foo() { }</script>
+    </body>
+</html>

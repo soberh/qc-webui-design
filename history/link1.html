@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>link1</title>
+</head>
+<body>
+<div>
+<input type="button" value="后退" onclick="myBack()" />
+<input type="button" value="前进" onclick="myForward()" />
+<input type="button" value="test" onclick="test()" />
+</div>
+<div>
+<ul>
+	<li><a href="history.html">history.html</a></li>
+	<li><a href="link1.html">link1.html</a></li>
+	<li><a href="link2.html">link2.html</a></li>
+</ul>
+<div>this is link1.(history.length=<span id="num">?</span>)</div>
+</div>
+<script type="text/javascript">
+var num = window.history.length;
+document.getElementById("num").innerHTML=num;
+function myBack(){
+	window.history.back();
+	// or window.history.go(-1);
+}
+function myForward(){
+	window.history.forward();
+	// or window.history.go(1);
+}
+/*
+Note: Internet Explorer supports passing string URLs as a parameter to go(); 
+this is non-standard and not supported by Gecko.
+
+Note that pushState() never causes a hashchange event to be fired
+
+history.replaceState() operates exactly like history.pushState() except that replaceState() modifies the current history entry instead of creating a new one.
+
+A popstate event is dispatched to the window every time the active history entry changes. If the history entry being activated was created by a call to pushState or affected by a call to replaceState, the popstate event's state property contains a copy of the history entry's state object.
+ */
+ 
+//测试支持的浏览器：Chrome8,Firefox4
+//经测试opera10.63、firefox3.6.13不支持
+//只要访问页面就会激活该事件了(页面还没渲染)，不过有没有浏览历史
+window.onpopstate = function(event) {  
+  alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
+};  
+function test(){
+	history.pushState({page: 1}, "title 1", "?page=1");  
+	history.pushState({page: 2}, "title 2", "?page=2");  
+	history.replaceState({page: 3}, "title 3", "?page=3");  
+	history.back(); // alerts "location: http://example.com/example.html?page=1, state: {"page":1}"  
+	history.back(); // alerts "location: http://example.com/example.html, state: null  
+	history.go(2);  // alerts "location: http://example.com/example.html?page=3, state: {"page":3}  
+}
+</script>
+</body>
+</html>

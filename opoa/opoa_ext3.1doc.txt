@@ -1,0 +1,89 @@
+﻿opoa -- one page, one application
+
+ext3.1.0文档 http://localhost:8080.../docs/index.html的opoa解读：
+
+使用Ext.Viewport布局整个页面：左边ApiPanel(扩展自Ext.tree.TreePanel)、右边MainPanel(扩展自Ext.TabPanel)
+
+点击ApiPanel的树节点：
+	api.on('click', function(node, e){
+	     if(node.isLeaf()){
+	        e.stopEvent();
+	        mainPanel.loadClass(node.attributes.href, node.id);
+	     }
+	});
+
+mainPanel加载panel的方法：
+	loadClass : function(href, cls, member){
+	    var id = 'docs-' + cls;
+	    var tab = this.getComponent(id);
+	    if(tab){
+	        this.setActiveTab(tab); 				//激活已经打开过的
+	        if(member){
+	            tab.scrollToMember(member);	//滚动到指定元素
+	        }
+	    }else{
+	        var autoLoad = {url: href};			//使用ajax加载panel的内容
+	        if(member){
+	            autoLoad.callback = function(){
+	                Ext.getCmp(id).scrollToMember(member);
+	            }
+	        }
+	        var p = this.add(new DocPanel({ //创建新tab
+	            id: id,
+	            cclass : cls,
+	            autoLoad: autoLoad,
+	            iconCls: Docs.icons[cls]		//tab的图标
+	        }));
+	        this.setActiveTab(p);
+	    }
+	},
+
+从上可知，每个tab就是一个DocPanel(扩展自Ext.Panel)的实例，内部初始化时默认给每个panel都加了tbar(工具条)。
+每个panel内部的单击连接都是通过panel的click做特殊处理的，
+如下（侦听整个panel的click事件，对不同的target做不同的事件处理）：
+onClick: function(e, target){
+	//alert("onClick panel any where." + e.target.tagName);
+    if(target = e.getTarget('a:not(.exi)', 3)){
+        var cls = Ext.fly(target).getAttributeNS('ext', 'cls');
+        e.stopEvent();
+        if(cls){
+            var member = Ext.fly(target).getAttributeNS('ext', 'member');
+            this.loadClass(target.href, cls, member);
+        }else if(target.className == 'inner-link'){
+            this.getActiveTab().scrollToSection(target.href.split('#')[1]);
+        }else{
+            window.open(target.href);
+        }
+    }else if(target = e.getTarget('.micon', 2)){
+        e.stopEvent();
+        var tr = Ext.fly(target.parentNode);
+        if(tr.hasClass('expandable')){
+            tr.toggleClass('expanded');
+        }
+    }
+}
+
+
+直接通过http://localhost:8080.../docs/index.html?class=Number打开Number标签的原理：
+使用Ext.urlDecode("foo=1&bar=2");方法获取参数，然后使用mainPanel的loadClass方法加载页签。
+
+Ext.urlDecode("foo=1&bar=2"); // returns {foo: "1", bar: "2"}
+Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2", "3", "4"]}
+urlDecode : function(string, overwrite){
+    if(Ext.isEmpty(string)){
+        return {};
+    }
+    var obj = {},
+        pairs = string.split('&'),
+        d = decodeURIComponent,
+        name,
+        value;
+    Ext.each(pairs, function(pair) {
+        pair = pair.split('=');
+        name = d(pair[0]);
+        value = d(pair[1]);
+        obj[name] = overwrite || !obj[name] ? value :
+                    [].concat(obj[name]).concat(value);
+    });
+    return obj;
+}

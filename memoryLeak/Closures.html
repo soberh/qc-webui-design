@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script language="JScript">
+
+        function AttachEvents(element)
+        {
+            // In order to remove this we need to put
+            // it somewhere. Creates another ref
+            element.expandoClick = ClickEventHandler;
+
+            // This structure causes element to ref ClickEventHandler
+            element.attachEvent("onclick", element.expandoClick);
+
+            function ClickEventHandler()
+            {
+                // This closure refs element
+            }
+        }
+
+        function SetupLeak()
+        {
+            // The leak happens all at once
+            AttachEvents(document.getElementById("LeakedDiv"));
+        }
+
+        function BreakLeak()
+        {
+            document.getElementById("LeakedDiv").detachEvent("onclick",
+                document.getElementById("LeakedDiv").expandoClick);
+            document.getElementById("LeakedDiv").expandoClick = null;
+        }
+        </script>
+    </head>
+
+    <body onload="SetupLeak()" onunload="BreakLeak()">
+        <div id="LeakedDiv"></div>
+    </body>
+</html>
