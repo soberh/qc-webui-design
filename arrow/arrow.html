@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>no image arrow design</title>
 <style type="text/css">
-.container{border: 5px solid #ccc;height:140px;_height:150px;}
+.container{border: 5px solid #ccc;height:140px;_height:150px;background-color:#ddd;}
 .container div{float: left;}
 .source{
 	display: block;
@@ -16,6 +16,10 @@
 	/*fixed ie*/
 	_width: 100px;_height: 100px;_line-height: 0;
 }
+.fixBorderColorTransparentInIE6{
+	border-style: dashed dashed solid dashed;
+}
+
 .m10{margin:10px;}
 .p10{padding:10px;}
 .ok{margin:10px;border-color: transparent transparent green transparent;}
@@ -23,13 +27,22 @@
 </head>
 <body style="padding: 20px;">
 <h1>不用图片生成的小箭头(no image arrow)</h1>
-<span>(unfortunately, in ie6 borer-color can not set to transparent)</span>
+<span>(不幸的是, ie6的borer-color设为transparent并没有透明掉)</span>
 <div class="container">
 	<div class="source"></div>
 	<div class="source m10"></div>
 	<div class="source m10 p10"></div>
 	<div class="source p10"></div>
 	<div class="source ok"></div>
+</div>
+<p></p>
+<span>(设置border-style为dashed dashed solid dashed, ie6也就OK了)</span>
+<div class="container">
+	<div class="source fixBorderColorTransparentInIE6"></div>
+	<div class="source fixBorderColorTransparentInIE6 m10"></div>
+	<div class="source fixBorderColorTransparentInIE6 m10 p10"></div>
+	<div class="source fixBorderColorTransparentInIE6 p10"></div>
+	<div class="source fixBorderColorTransparentInIE6 ok"></div>
 </div>
 
 </body>
