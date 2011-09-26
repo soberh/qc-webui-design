@@ -1,0 +1,127 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	overflow: auto;
+	background-color: #ccc;
+}
+
+#box {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#box2 {
+	position: relative;
+	margin: auto;
+	height: 400px;
+	width: 600px;
+	top: 50%;
+	margin-top: -200px;
+}
+
+#box>#top {
+	z-index: 3;
+	position: absolute;
+	background-color: #fff0ff;
+	background: -webkit-linear-gradient(#fff0ff, #f5c2d9);
+	box-shadow: #87596d 0px 0px 10px;
+	height: 2em;
+	width: 100%;
+	overflow: visible;
+}
+
+#box>#middle {
+	z-index: 1;
+	position: absolute;
+	background-color: #e094b9;
+	overflow: auto;
+	top: 2em;
+	bottom: 3em;
+	width: 100%;
+	background: -webkit-linear-gradient(45deg, #e094b9, #4c5598);
+}
+
+#box>#bottom {
+	z-index: 2;
+	position: absolute;
+	background-color: #fff0ff;
+	height: 3em;
+	width: 100%;
+	bottom: 0;
+	overflow: visible;
+	background: -webkit-linear-gradient(#fff0ff, #f5c2d9);
+	box-shadow: #87596d 0px 0px 10px;
+}
+
+#box>#top>#mainIcon {
+	position: absolute;
+	background-color: #666;
+	height: 3em;
+	width: 5em;
+}
+
+#box>#top>#leftMenu {
+	position: absolute;
+	background-color: #777;
+	width: 30em;
+	left: 5.2em;
+}
+
+#box>#top>#rightMenu {
+	position: absolute;
+	background-color: #777;
+	right: 0.25em;
+}
+
+#box>#top>ul.menu {
+	height: 2em;
+	line-height: 2em;
+	outline: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#box>#top>ul.menu>li {
+	display: inline-block;
+	height: 100%;
+	position: relative;
+}
+
+#box>#top>ul.menu>li>a {
+	height: 100%;
+	width: 100%;
+	outline: none;
+	display: block;
+	text-decoration: none !important;
+}
+
+#box>#top>ul.menu>li>.circleNum {
+	position: absolute;
+	bottom: 0;
+	right: 0.1em;
+	margin-bottom: -1em;
+	display: block;
+	font-size: 0.75em;
+	background-color: red;
+	border-radius: 0.75em;
+	height: 1.5em;
+	line-height: 1.5em;
+	min-width: 1em;
+	text-align: center;
+	padding: 0 0.3em 0 0.4em;
+	cursor: pointer;
+	margin-bottom: -1em;
+}
+
+#box>#top>ul.menu>li>a>span.icon {
+	position: relative;
+	display: block;
+	height: 16px;
+	width: 16px;
+	top: 50%;
+	margin-top: -8px;
+	background-color: blue;
+}
